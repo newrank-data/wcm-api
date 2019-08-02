@@ -16,7 +16,7 @@ router.get('/:userId/:mblogHexId', async (req, res) => {
   try {
     const reply = await axios.get(url);
     const html = reply.data;
-    const content = /\"text\"\:\s\"(.+)\"/.exec(html)[1].replace(/\<.*\>/, '');
+    const content = /\"text\"\:\s\"(.+)\"/.exec(html)[1].replace(/<\/?[^>]*>/g, '');
     const releaseTime = transformDate(/\"created\_at\"\:\s\"(.*)\"/.exec(html)[1]);
     const commentCount = parseInt(/\"comments\_count\"\:\s(\d+)/.exec(html)[1]);
 
